@@ -1,10 +1,14 @@
 import React from 'react';
 
-export const TaskItem = () => {
+export const TaskItem = ({ ob}) => {
     return (
-        <div>
+        <>
+            <li>
+                <span>{ob.title}</span> - <em>{ob.category}</em>
+            </li>
 
-        </div>
+    </>
+
     );
 };
 
