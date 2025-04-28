@@ -3,6 +3,7 @@ import {useState} from 'react'
 import './App.css'
 import {TaskForm} from "./components/TaskForm.jsx";
 import {TaskList} from "./components/TaskList.jsx";
+import {FilterBox} from "./components/FilterBox.jsx";
 
 function App() {
     const [tasks, setTasks] = useState([])
@@ -11,14 +12,25 @@ function App() {
         {id: 2, title: 'Купить продукты', category: 'Работа', completed: false },
         {id: 3, title: 'Поиграть с малышом', category: 'Дом', completed: false },
     ])
-    // const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState('Все')
+
+
+
+    function  resultFilteredTasks (filt) {
+        setFilter(filt)
+    }
+
+    const filteredTasksRes = obj.filter(task => {
+        if (filter === 'Все') return true;
+        if(filter === 'Выполненные') return task.completed;
+        if(filter === 'Активные') return !task.completed;
+    })
 
 
     function addTask(newTask) {
         setTasks((prevTasks) => [...prevTasks, newTask])
     }
 
-    const filteredTasks = obj;
 
     function toggleTask(id) {
         setObj((prev) =>
@@ -31,7 +43,8 @@ function App() {
         <>
             <h1>gi</h1>
             <TaskForm onAddTask={addTask}/>
-            <TaskList obj={filteredTasks} toggleTask={toggleTask}/>
+            <TaskList obj={ filteredTasksRes} toggleTask={toggleTask}/>
+            <FilterBox resultFil={resultFilteredTasks} />
         </>
     )
 }

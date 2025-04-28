@@ -1,9 +1,12 @@
 import React from 'react';
 
-export const FilterBox = () => {
+export const FilterBox = ({resultFil}) => {
     return (
-        <div>
+<>
+    <button onClick={() => resultFil('Все') }>Все!</button>
+    <button onClick={() => resultFil('Выполненные') }>Выполненные!</button>
+    <button onClick={() => resultFil('Активные') }>Активные!</button>
+</>
 
-        </div>
     );
 };
