@@ -20,12 +20,18 @@ function App() {
 
     const filteredTasks = obj;
 
+    function toggleTask(id) {
+        setObj((prev) =>
+        prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed} :  task))
+    }
+
 
     return (
         <>
             <h1>gi</h1>
             <TaskForm onAddTask={addTask}/>
-            <TaskList obj={filteredTasks}/>
+            <TaskList obj={filteredTasks} toggleTask={toggleTask}/>
         </>
     )
 }
