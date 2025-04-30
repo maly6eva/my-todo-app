@@ -7,8 +7,7 @@ import {FilterBox} from "./components/FilterBox.jsx";
 import {SearchInput} from "./components/SearchInput.jsx";
 
 function App() {
-    const [tasks, setTasks] = useState([])
-    const [obj, setObj] = useState([
+    const [tasks, setTasks] = useState([
         {id: 1, title: 'Поработать', category: 'Учеба', completed: false },
         {id: 2, title: 'Купить продукты', category: 'Работа', completed: false },
         {id: 3, title: 'Поиграть с малышом', category: 'Дом', completed: false },
@@ -16,7 +15,7 @@ function App() {
     const [filter, setFilter] = useState('Все')
     const [ searchTerm, setSearchTerm] = useState('')
 
-    const filteredTasksRes  = obj.filter(task => {
+    const filteredTasksRes  = tasks.filter(task => {
         const matchesFilter =
             filter === 'Все' ||
             (filter === 'Выполненные' && task.completed) ||
@@ -26,21 +25,16 @@ function App() {
         return matchesFilter &&  matchesSearch
     })
 
-
-
-
     function  resultFilteredTasks (filt) {
         setFilter(filt)
     }
 
-
     function addTask(newTask) {
-        setTasks((prevTasks) => [...prevTasks, newTask])
+        setTasks((prevTasks) => [newTask, ...prevTasks])
     }
 
-
     function toggleTask(id) {
-        setObj((prev) =>
+        setTasks((prev) =>
         prev.map((task) =>
         task.id === id ? { ...task, completed: !task.completed} :  task))
     }
