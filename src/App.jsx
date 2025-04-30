@@ -4,6 +4,7 @@ import './App.css'
 import {TaskForm} from "./components/TaskForm.jsx";
 import {TaskList} from "./components/TaskList.jsx";
 import {FilterBox} from "./components/FilterBox.jsx";
+import {SearchInput} from "./components/SearchInput.jsx";
 
 function App() {
     const [tasks, setTasks] = useState([])
@@ -13,18 +14,24 @@ function App() {
         {id: 3, title: 'Поиграть с малышом', category: 'Дом', completed: false },
     ])
     const [filter, setFilter] = useState('Все')
+    const [ searchTerm, setSearchTerm] = useState('')
+
+    const filteredTasksRes  = obj.filter(task => {
+        const matchesFilter =
+            filter === 'Все' ||
+            (filter === 'Выполненные' && task.completed) ||
+            (filter === 'Активные' && !task.completed);
+
+        const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        return matchesFilter &&  matchesSearch
+    })
+
 
 
 
     function  resultFilteredTasks (filt) {
         setFilter(filt)
     }
-
-    const filteredTasksRes = obj.filter(task => {
-        if (filter === 'Все') return true;
-        if(filter === 'Выполненные') return task.completed;
-        if(filter === 'Активные') return !task.completed;
-    })
 
 
     function addTask(newTask) {
@@ -42,6 +49,7 @@ function App() {
     return (
         <>
             <h1>gi</h1>
+            <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
             <TaskForm onAddTask={addTask}/>
             <TaskList obj={ filteredTasksRes} toggleTask={toggleTask}/>
             <FilterBox resultFil={resultFilteredTasks} />
