@@ -6,7 +6,7 @@ export const TaskList = ({ obj, toggleTask}) => {
         <>
             <ul>
                 {obj.map((ob) => (
-                    <TaskItem key={ob.id} ob={ob} toggleTask={toggleTask} />
+                    <TaskItem key={ob.id} ob={ob} toggleTask={toggleTask}/>
                 ))}
             </ul>
         </>
