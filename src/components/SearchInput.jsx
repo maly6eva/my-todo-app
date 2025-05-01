@@ -1,7 +1,6 @@
 import React from 'react';
 
 export const SearchInput = ({searchTerm, setSearchTerm}) => {
-
     return (
         <form action="">
             <input

@@ -1,12 +1,12 @@
 import React from 'react';
 import {TaskItem} from "./TaskItem.jsx";
 
-export const TaskList = ({ obj, toggleTask}) => {
+export const TaskList = ({ tasks, toggleTask}) => {
     return (
         <>
             <ul>
-                {obj.map((ob) => (
-                    <TaskItem key={ob.id} ob={ob} toggleTask={toggleTask}/>
+                {tasks.map((task) => (
+                    <TaskItem key={task.id} t={task} toggleTask={toggleTask}/>
                 ))}
             </ul>
         </>

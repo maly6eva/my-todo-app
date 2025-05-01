@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import './App.css'
 import {TaskForm} from "./components/TaskForm.jsx";
@@ -7,13 +7,20 @@ import {FilterBox} from "./components/FilterBox.jsx";
 import {SearchInput} from "./components/SearchInput.jsx";
 
 function App() {
-    const [tasks, setTasks] = useState([
-        {id: 1, title: 'Поработать', category: 'Учеба', completed: false },
-        {id: 2, title: 'Купить продукты', category: 'Работа', completed: false },
-        {id: 3, title: 'Поиграть с малышом', category: 'Дом', completed: false },
-    ])
+    const [tasks, setTasks] = useState(() => {
+        const saved = localStorage.getItem('tasks')
+        return saved ? JSON.parse(saved) : [
+            {id: 1, title: 'Поработать', category: 'Учеба', completed: false },
+            {id: 2, title: 'Купить продукты', category: 'Работа', completed: false },
+            {id: 3, title: 'Поиграть с малышом', category: 'Дом', completed: false },
+        ]
+    })
     const [filter, setFilter] = useState('Все')
     const [ searchTerm, setSearchTerm] = useState('')
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    }, [tasks])
 
     const filteredTasksRes  = tasks.filter(task => {
         const matchesFilter =
@@ -42,10 +49,10 @@ function App() {
 
     return (
         <>
-            <h1>gi</h1>
+            <h1>ToDo</h1>
             <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
             <TaskForm onAddTask={addTask}/>
-            <TaskList obj={ filteredTasksRes} toggleTask={toggleTask}/>
+            <TaskList tasks={ filteredTasksRes} toggleTask={toggleTask}/>
             <FilterBox resultFil={resultFilteredTasks} />
         </>
     )
